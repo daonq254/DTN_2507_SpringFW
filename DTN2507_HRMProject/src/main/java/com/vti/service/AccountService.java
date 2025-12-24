@@ -72,7 +72,16 @@ public class AccountService implements IAccountService {
 		account.setPosition(position);
 
 		Account account_update = accountRepository.save(account);
-
 		return account_update;
+
+	}
+
+	@Override
+	public Account getAccountByUsername(String username) {
+
+		Account account = accountRepository.findByUsername(username)
+				.orElseThrow(() -> new IllegalArgumentException("Username not Found: " + username));
+		return account;
+
 	}
 }

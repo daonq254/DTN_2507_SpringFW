@@ -104,4 +104,21 @@ public class AccountController {
 
 		return new ResponseEntity<>(accontDto, HttpStatus.OK);
 	}
+
+//	Tìm Account theo Username
+	@GetMapping(value = "/username/{username}")
+	public ResponseEntity<?> getAccountByUsername(@PathVariable(name = "username") String username) {
+		Account account = accountService.getAccountByUsername(username);
+
+		AccontDto accontDto = new AccontDto();
+		accontDto.setId(account.getId());
+		accontDto.setEmail(account.getEmail());
+		accontDto.setUsername(account.getUsername());
+		accontDto.setFullname(account.getFullname());
+		accontDto.setDepartment(account.getDepartment().getName());
+		accontDto.setPosition(account.getPosition().getName().toString());
+		accontDto.setCreateDate(account.getCreateDate());
+
+		return new ResponseEntity<>(accontDto, HttpStatus.OK);
+	}
 }

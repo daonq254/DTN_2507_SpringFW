@@ -16,4 +16,6 @@ public interface IAccountService {
 
 	Account updateAccount(short id, AccountFormForUpdating formUpdating);
 
+	Account getAccountByUsername(String username);
+
 }
