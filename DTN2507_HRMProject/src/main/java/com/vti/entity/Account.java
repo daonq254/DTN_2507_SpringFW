@@ -1,6 +1,6 @@
 package com.vti.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -44,5 +44,66 @@ public class Account {
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date createDate;
+
+	public Account() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public short getId() {
+		return id;
+	}
+
+	public void setId(short id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 
 }
