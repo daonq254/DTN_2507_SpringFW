@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vti.dto.AccontDto;
 import com.vti.entity.Account;
 import com.vti.form.AccountFormForCreating;
+import com.vti.form.AccountFormForUpdating;
 import com.vti.service.IAccountService;
 
 @RestController
@@ -72,6 +74,24 @@ public class AccountController {
 	@PostMapping()
 	public ResponseEntity<?> createNewAccount(@RequestBody AccountFormForCreating formCreating) {
 		Account account = accountService.createNewAccount(formCreating);
+
+		AccontDto accontDto = new AccontDto();
+		accontDto.setId(account.getId());
+		accontDto.setEmail(account.getEmail());
+		accontDto.setUsername(account.getUsername());
+		accontDto.setFullname(account.getFullname());
+		accontDto.setDepartment(account.getDepartment().getName());
+		accontDto.setPosition(account.getPosition().getName().toString());
+		accontDto.setCreateDate(account.getCreateDate());
+
+		return new ResponseEntity<>(accontDto, HttpStatus.OK);
+	}
+
+//	Update Account
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<?> updateAccount(@RequestBody AccountFormForUpdating formUpdating,
+			@PathVariable(name = "id") short id) {
+		Account account = accountService.updateAccount(id, formUpdating);
 
 		AccontDto accontDto = new AccontDto();
 		accontDto.setId(account.getId());

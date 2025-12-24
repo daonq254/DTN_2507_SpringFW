@@ -10,6 +10,7 @@ import com.vti.entity.Account;
 import com.vti.entity.Department;
 import com.vti.entity.Position;
 import com.vti.form.AccountFormForCreating;
+import com.vti.form.AccountFormForUpdating;
 import com.vti.repository.IAccountRepository;
 import com.vti.repository.IDepartmentRepository;
 import com.vti.repository.IPossitionRepository;
@@ -56,5 +57,22 @@ public class AccountService implements IAccountService {
 		Account account_new = accountRepository.save(account);
 
 		return account_new;
+	}
+
+	@Override
+	public Account updateAccount(short id, AccountFormForUpdating formUpdating) {
+//		id ==> tìm ra accoung tương ứng dưới db
+		Account account = accountRepository.getById(id);
+
+		account.setFullname(formUpdating.getFullname());
+		Department department = departmentRepository.getById(formUpdating.getDepartmentId());
+		account.setDepartment(department);
+
+		Position position = possitionRepository.getById(formUpdating.getPositionId());
+		account.setPosition(position);
+
+		Account account_update = accountRepository.save(account);
+
+		return account_update;
 	}
 }
