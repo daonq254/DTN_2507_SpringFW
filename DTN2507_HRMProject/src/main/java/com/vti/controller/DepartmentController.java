@@ -3,6 +3,7 @@ package com.vti.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,14 +24,20 @@ public class DepartmentController {
 	@Autowired
 	private IDepartmentService departmentService;
 
+	@Autowired
+	private ModelMapper modelMapper;
+
 	@GetMapping()
 	public ResponseEntity<?> getAllDepartments() {
 		List<Department> listdeDepartments = departmentService.getAllDepartments(); // id name
 //
 		List<DepartmentDto> listdepDepartmentDtos = new ArrayList<>(); // name
 		for (Department department : listdeDepartments) {
-			DepartmentDto departmentDto = new DepartmentDto();
-			departmentDto.setName(department.getName());
+//			DepartmentDto departmentDto = new DepartmentDto();
+//			departmentDto.setName(department.getName());
+
+			DepartmentDto departmentDto = modelMapper.map(department, DepartmentDto.class);
+
 			listdepDepartmentDtos.add(departmentDto);
 		}
 
