@@ -15,18 +15,6 @@ public class AccontDto {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date createDate; // 2025-12-24
 
-	public AccontDto(short id, String email, String username, String fullname, String department, String position,
-			Date createDate) {
-		super();
-		this.id = id;
-		this.email = email;
-		this.username = username;
-		this.fullname = fullname;
-		this.department = department;
-		this.position = position;
-		this.createDate = createDate;
-	}
-
 	public AccontDto() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -87,5 +75,4 @@ public class AccontDto {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-
 }

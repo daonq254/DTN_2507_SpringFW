@@ -18,4 +18,14 @@ public interface IAccountService {
 
 	Account getAccountByUsername(String username);
 
+	boolean existByUsernameOrEmail(String username, String email);
+
+	Account getLastestAccount();
+
+	List<Account> getAccountByIdRange(short idFrom, short idTo);
+
+	List<Account> getAccountByIds(List<Short> ids);
+
+	List<String> getAllUsernames();
+
 }

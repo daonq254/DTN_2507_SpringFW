@@ -35,9 +35,9 @@ public class AccountService implements IAccountService {
 	@Override
 	public Account getAccountById(short id) {
 		// TODO Auto-generated method stub
-
 		return accountRepository.getById(id);
 	}
+
 //	
 
 	@Override
@@ -82,6 +82,31 @@ public class AccountService implements IAccountService {
 		Account account = accountRepository.findByUsername(username)
 				.orElseThrow(() -> new IllegalArgumentException("Username not Found: " + username));
 		return account;
+	}
 
+	@Override
+	public boolean existByUsernameOrEmail(String username, String email) {
+		// TODO Auto-generated method stub
+		return accountRepository.existsByUsernameOrEmail(username, email);
+	}
+
+	@Override
+	public Account getLastestAccount() {
+		return accountRepository.findTopByOrderByIdDesc();
+	}
+
+	@Override
+	public List<Account> getAccountByIdRange(short idFrom, short idTo) {
+		return accountRepository.findByIdBetween(idFrom, idTo);
+	}
+
+	@Override
+	public List<Account> getAccountByIds(List<Short> ids) {
+		return accountRepository.findAllById(ids);
+	}
+
+	@Override
+	public List<String> getAllUsernames() {
+		return accountRepository.getAllUsernames();
 	}
 }
