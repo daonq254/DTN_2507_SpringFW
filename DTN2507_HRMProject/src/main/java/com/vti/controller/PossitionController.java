@@ -1,8 +1,8 @@
 package com.vti.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,19 +22,27 @@ public class PossitionController {
 	@Autowired
 	private IPossitionService possitionService;
 
+	@Autowired
+	private ModelMapper modelMapper;
+
 	@GetMapping()
 	public ResponseEntity<?> getAllPossitons() {
 		List<Position> listPositions = possitionService.getAllPossition();
 
-		List<PossitonDto> listPossitonDtos = new ArrayList<>();
-
-		for (Position position : listPositions) {
-			PossitonDto possitonDto = new PossitonDto();
-			possitonDto.setId(position.getId());
-			possitonDto.setName(position.getName().toString());
-
-			listPossitonDtos.add(possitonDto);
-		}
+//		List<PossitonDto> listPossitonDtos = new ArrayList<>();
+//
+//		for (Position position : listPositions) {
+//			PossitonDto possitonDto = new PossitonDto();
+//			possitonDto.setId(position.getId());
+//			possitonDto.setName(position.getName().toString());
+//
+//			listPossitonDtos.add(possitonDto);
+//		}
+		List<PossitonDto> listPossitonDtos = listPositions.stream().map(p -> {
+			PossitonDto possitonDto = modelMapper.map(p, PossitonDto.class);
+			possitonDto.setName(p.getName().toString());
+			return possitonDto;
+		}).toList();
 
 		return new ResponseEntity<>(listPossitonDtos, HttpStatus.OK);
 	}

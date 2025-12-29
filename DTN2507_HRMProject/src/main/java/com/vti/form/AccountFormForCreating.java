@@ -1,11 +1,16 @@
 package com.vti.form;
 
 public class AccountFormForCreating {
+
 	private String email;
+
 	private String username;
+
 	private String fullname;
-	private short departmentId;
-	private short positionId;
+
+	private Short departmentId;
+
+	private Short positionId;
 
 	public AccountFormForCreating() {
 		super();
@@ -36,19 +41,19 @@ public class AccountFormForCreating {
 		this.fullname = fullname;
 	}
 
-	public short getDepartmentId() {
+	public Short getDepartmentId() {
 		return departmentId;
 	}
 
-	public void setDepartmentId(short departmentId) {
+	public void setDepartmentId(Short departmentId) {
 		this.departmentId = departmentId;
 	}
 
-	public short getPositionId() {
+	public Short getPositionId() {
 		return positionId;
 	}
 
-	public void setPositionId(short positionId) {
+	public void setPositionId(Short positionId) {
 		this.positionId = positionId;
 	}
 

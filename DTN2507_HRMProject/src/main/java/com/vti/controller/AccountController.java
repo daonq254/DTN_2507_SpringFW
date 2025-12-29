@@ -3,6 +3,7 @@ package com.vti.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,24 +32,33 @@ public class AccountController {
 	@Autowired
 	private IAccountService accountService;
 
+	@Autowired
+	private ModelMapper modelMapper;
+
 //	GetAllAccount
 	@GetMapping()
 	public ResponseEntity<?> getAllAccounts() {
 		List<Account> listAccounts = accountService.getAllAccounts();
 //
-		List<AccontDto> listAccountDtos = new ArrayList<>();
-		for (Account account : listAccounts) {
-			AccontDto accontDto = new AccontDto();
-			accontDto.setId(account.getId());
-			accontDto.setEmail(account.getEmail());
-			accontDto.setUsername(account.getUsername());
-			accontDto.setFullname(account.getFullname());
-			accontDto.setDepartment(account.getDepartment().getName());
-			accontDto.setPosition(account.getPosition().getName().toString());
-			accontDto.setCreateDate(account.getCreateDate());
+//		List<AccontDto> listAccountDtos = new ArrayList<>();
+//		for (Account account : listAccounts) {
+//			AccontDto accontDto = new AccontDto();
+//			accontDto.setId(account.getId());
+//			accontDto.setEmail(account.getEmail());
+//			accontDto.setUsername(account.getUsername());
+//			accontDto.setFullname(account.getFullname());
+//			accontDto.setDepartment(account.getDepartment().getName());
+//			accontDto.setPosition(account.getPosition().getName().toString());
+//			accontDto.setCreateDate(account.getCreateDate());
+//
+//			listAccountDtos.add(accontDto);
+//		}
+		List<AccontDto> listAccountDtos = listAccounts.stream().map(account -> {
 
-			listAccountDtos.add(accontDto);
-		}
+			AccontDto accountDto = modelMapper.map(account, AccontDto.class);
+			accountDto.setPosition(account.getPosition().getName().toString());
+			return accountDto;
+		}).toList();
 
 		return new ResponseEntity<>(listAccountDtos, HttpStatus.OK);
 	}
@@ -60,22 +70,26 @@ public class AccountController {
 
 		Account account = accountService.getAccountById(id);
 
-		AccontDto accontDto = new AccontDto();
-		accontDto.setId(account.getId());
-		accontDto.setEmail(account.getEmail());
-		accontDto.setUsername(account.getUsername());
-		accontDto.setFullname(account.getFullname());
-		accontDto.setDepartment(account.getDepartment().getName());
-		accontDto.setPosition(account.getPosition().getName().toString());
-		accontDto.setCreateDate(account.getCreateDate());
+//		AccontDto accontDto = new AccontDto();
+//		accontDto.setId(account.getId());
+//		accontDto.setEmail(account.getEmail());
+//		accontDto.setUsername(account.getUsername());
+//		accontDto.setFullname(account.getFullname());
+//		accontDto.setDepartment(account.getDepartment().getName());
+//		accontDto.setPosition(account.getPosition().getName().toString());
+//		accontDto.setCreateDate(account.getCreateDate());
 
-		return new ResponseEntity<>(accontDto, HttpStatus.OK);
+		AccontDto accountDto = modelMapper.map(account, AccontDto.class);
+		accountDto.setPosition(account.getPosition().getName().toString());
+
+		return new ResponseEntity<>(accountDto, HttpStatus.OK);
 
 	}
 
 //	Tạo mới Account
 	@PostMapping()
 	public ResponseEntity<?> createNewAccount(@RequestBody AccountFormForCreating formCreating) {
+
 		Account account = accountService.createNewAccount(formCreating);
 
 		AccontDto accontDto = new AccontDto();
@@ -93,7 +107,7 @@ public class AccountController {
 //	Update Account
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> updateAccount(@RequestBody AccountFormForUpdating formUpdating,
-			@PathVariable(name = "id") short id) {
+			@PathVariable(name = "id") Short id) {
 		Account account = accountService.updateAccount(id, formUpdating);
 
 		AccontDto accontDto = new AccontDto();

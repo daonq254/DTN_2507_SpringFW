@@ -1,6 +1,5 @@
 package com.vti.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -31,16 +30,18 @@ public class DepartmentController {
 	public ResponseEntity<?> getAllDepartments() {
 		List<Department> listdeDepartments = departmentService.getAllDepartments(); // id name
 //
-		List<DepartmentDto> listdepDepartmentDtos = new ArrayList<>(); // name
-		for (Department department : listdeDepartments) {
-//			DepartmentDto departmentDto = new DepartmentDto();
-//			departmentDto.setName(department.getName());
+//		List<DepartmentDto> listdepDepartmentDtos = new ArrayList<>(); // name
+//		for (Department department : listdeDepartments) {
+////			DepartmentDto departmentDto = new DepartmentDto();
+////			departmentDto.setName(department.getName());
+//
+//			DepartmentDto departmentDto = modelMapper.map(department, DepartmentDto.class);
+//
+//			listdepDepartmentDtos.add(departmentDto);
+//		}
 
-			DepartmentDto departmentDto = modelMapper.map(department, DepartmentDto.class);
-
-			listdepDepartmentDtos.add(departmentDto);
-		}
-
+		List<DepartmentDto> listdepDepartmentDtos = listdeDepartments.stream()
+				.map(department -> modelMapper.map(department, DepartmentDto.class)).toList();
 //		
 		return new ResponseEntity<>(listdepDepartmentDtos, HttpStatus.OK);
 	}
