@@ -2,9 +2,12 @@ package com.vti.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,8 +40,12 @@ public class AccountController {
 
 //	GetAllAccount
 	@GetMapping()
-	public ResponseEntity<?> getAllAccounts() {
-		List<Account> listAccounts = accountService.getAllAccounts();
+	public ResponseEntity<?> getAllAccounts(Pageable pageable, @RequestParam(required = false) String search) {
+
+//		System.out.println("pageable: " + pageable);
+		System.out.println("search: " + search);
+
+		Page<Account> pageAccounts = accountService.getAllAccounts(pageable, search);
 //
 //		List<AccontDto> listAccountDtos = new ArrayList<>();
 //		for (Account account : listAccounts) {
@@ -53,14 +60,32 @@ public class AccountController {
 //
 //			listAccountDtos.add(accontDto);
 //		}
-		List<AccontDto> listAccountDtos = listAccounts.stream().map(account -> {
+//		Page<AccontDto> pageAccountDtos = pageAccounts.map(account -> {
+//
+//			AccontDto accountDto = modelMapper.map(account, AccontDto.class);
+//			accountDto.setPosition(account.getPosition().getName().toString());
+//			return accountDto;
+//		});
 
-			AccontDto accountDto = modelMapper.map(account, AccontDto.class);
-			accountDto.setPosition(account.getPosition().getName().toString());
-			return accountDto;
-		}).toList();
+		Page<AccontDto> pageAccountDtos = pageAccounts.map(new Function<Account, AccontDto>() {
 
-		return new ResponseEntity<>(listAccountDtos, HttpStatus.OK);
+			@Override
+			public AccontDto apply(Account account) {
+				AccontDto accontDto = new AccontDto();
+				accontDto.setId(account.getId());
+				accontDto.setEmail(account.getEmail());
+				accontDto.setUsername(account.getUsername());
+				accontDto.setFullname(account.getFullname());
+				accontDto.setDepartment(account.getDepartment().getName());
+				accontDto.setPosition(account.getPosition().getName().toString());
+				accontDto.setCreateDate(account.getCreateDate());
+
+				return accontDto;
+			}
+
+		});
+
+		return new ResponseEntity<>(pageAccountDtos, HttpStatus.OK);
 	}
 
 //	getAccountById
