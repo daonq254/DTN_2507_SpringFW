@@ -39,12 +39,15 @@ public class AccountService implements IAccountService {
 		if (!StringUtils.isEmpty(search)) {
 			AccountSpecification nameSpecification = new AccountSpecification("fullname", "LIKE", search);
 			AccountSpecification emailSpecification = new AccountSpecification("email", "LIKE", search);
-//			AccountSpecification departmentSpecification = new AccountSpecification("department", "LIKE", search);
+			AccountSpecification departmentSpecification = new AccountSpecification("department", "LIKE", search);
+			AccountSpecification usernameSpecification = new AccountSpecification("username", "LIKE", search);
 
-			where = Specification.where(nameSpecification).or(emailSpecification);
+			where = Specification.where(nameSpecification).or(emailSpecification).or(departmentSpecification)
+					.or(usernameSpecification);
+			return accountRepository.findAll(where, pageable);
+		} else {
+			return accountRepository.findAll(pageable);
 		}
-
-		return accountRepository.findAll(where, pageable);
 
 	}
 
