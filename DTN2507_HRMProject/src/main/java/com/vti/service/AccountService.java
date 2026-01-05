@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -127,5 +131,20 @@ public class AccountService implements IAccountService {
 	@Override
 	public List<String> getAllUsernames() {
 		return accountRepository.getAllUsernames();
+	}
+
+//	
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Account account = accountRepository.findByUsername(username).orElse(null);
+		if (account == null) {
+			throw new UsernameNotFoundException(username);
+		}
+
+		UserDetails userDetails = new User(account.getUsername(), account.getPassword(),
+				AuthorityUtils.createAuthorityList("ROLE_" + account.getRole()));
+// ROLE_ADMIN
+//	ROLE_USER
+		return userDetails;
 	}
 }
