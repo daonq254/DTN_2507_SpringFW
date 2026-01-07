@@ -92,24 +92,35 @@ public class AccountController {
 //	http://localhost:8080/api/v1/accounts/2
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<?> getAccountById(@PathVariable(name = "id") short id) {
-
-		Account account = accountService.getAccountById(id);
-
-//		AccontDto accontDto = new AccontDto();
-//		accontDto.setId(account.getId());
-//		accontDto.setEmail(account.getEmail());
-//		accontDto.setUsername(account.getUsername());
-//		accontDto.setFullname(account.getFullname());
-//		accontDto.setDepartment(account.getDepartment().getName());
-//		accontDto.setPosition(account.getPosition().getName().toString());
-//		accontDto.setCreateDate(account.getCreateDate());
-
-		AccontDto accountDto = modelMapper.map(account, AccontDto.class);
+//		try {
+		Account account = accountService.getAccountById(id); // có dữ liệu, null
+		AccontDto accountDto = modelMapper.map(account, AccontDto.class); // exception
 		accountDto.setPosition(account.getPosition().getName().toString());
 
 		return new ResponseEntity<>(accountDto, HttpStatus.OK);
+//		} catch (EntityNotFoundException e) {
+//
+//			Map<String, Object> body = new HashMap<>();
+//			body.put("status", HttpStatus.NOT_FOUND.value());
+//			body.put("message", "Account not found with id =" + id);
+//
+////			return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+//		}
 
 	}
+//  Xử lý EntityNotFoundException
+
+//	@ExceptionHandler(EntityNotFoundException.class)
+//	public ResponseEntity<?> handleEntityNotFound(EntityNotFoundException ex, HttpServletRequest request) {
+//		Map<String, Object> body = new HashMap<>();
+//		body.put("status", HttpStatus.NOT_FOUND.value());
+////		body.put("error", "Account not found ");
+//		body.put("message", ex.getMessage());
+//		body.put("path", request.getRequestURI());
+//
+//		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+//	}
 
 //	Tạo mới Account
 	@PostMapping()

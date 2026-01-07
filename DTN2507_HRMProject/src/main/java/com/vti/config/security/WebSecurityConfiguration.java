@@ -47,6 +47,7 @@ public class WebSecurityConfiguration {
 				.requestMatchers(HttpMethod.DELETE, "/api/v1/departments/**").hasRole("ADMIN")
 
 				.requestMatchers(HttpMethod.GET, "/api/v1/departments/**").hasAnyRole("ADMIN", "USER")
+
 				// Các request khác: chỉ cần authenticated
 				.anyRequest().authenticated()).httpBasic(Customizer.withDefaults());
 
