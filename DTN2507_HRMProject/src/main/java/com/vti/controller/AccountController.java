@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,9 +28,14 @@ import com.vti.form.AccountFormForCreating;
 import com.vti.form.AccountFormForUpdating;
 import com.vti.service.IAccountService;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 @RestController
 @RequestMapping(value = "api/v1/accounts")
 @CrossOrigin("*")
+@Validated
 public class AccountController {
 
 	@Autowired
@@ -124,7 +130,16 @@ public class AccountController {
 
 //	Tạo mới Account
 	@PostMapping()
-	public ResponseEntity<?> createNewAccount(@RequestBody AccountFormForCreating formCreating) {
+	public ResponseEntity<?> createNewAccount(@Valid @RequestBody AccountFormForCreating formCreating) {
+
+//		if (bindingResult.hasErrors()) {
+//			// build map lỗi gửi về
+//			Map<String, String> errors = new HashMap<>();
+//			bindingResult.getFieldErrors().forEach(err -> {
+//				errors.put(err.getField(), err.getDefaultMessage());
+//			});
+//			return ResponseEntity.badRequest().body(errors);
+//		}
 
 		Account account = accountService.createNewAccount(formCreating);
 
@@ -142,8 +157,8 @@ public class AccountController {
 
 //	Update Account
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<?> updateAccount(@RequestBody AccountFormForUpdating formUpdating,
-			@PathVariable(name = "id") Short id) {
+	public ResponseEntity<?> updateAccount(@Valid @RequestBody AccountFormForUpdating formUpdating,
+			@PathVariable(name = "id") @NotNull(message = "Id không được để trống") @Positive(message = "Id không hợp lệ, phải là số nguyên dương") Short id) {
 		Account account = accountService.updateAccount(id, formUpdating);
 
 		AccontDto accontDto = new AccontDto();

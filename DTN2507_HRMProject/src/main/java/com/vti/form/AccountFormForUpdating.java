@@ -1,10 +1,16 @@
 package com.vti.form;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class AccountFormForUpdating {
+	@NotBlank(message = "Fullname không được để trống")
 	private String fullname;
 
+	@NotNull(message = "DepartmentId không được để trống")
 	private Short departmentId;
 
+	@NotNull(message = "PositionId không được để trống")
 	private Short positionId;
 
 	public AccountFormForUpdating() {

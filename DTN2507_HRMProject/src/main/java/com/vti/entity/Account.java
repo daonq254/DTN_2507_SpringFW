@@ -51,9 +51,20 @@ public class Account {
 	@Column(name = "Role", length = 50)
 	private String role;
 
+	@Column(name = "PathImage", length = 50, unique = true)
+	private String pathImage;
+
 	public Account() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public String getPathImage() {
+		return pathImage;
+	}
+
+	public void setPathImage(String pathImage) {
+		this.pathImage = pathImage;
 	}
 
 	public String getRole() {
