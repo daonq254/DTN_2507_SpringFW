@@ -12,9 +12,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name = "Position", catalog = "Testing_System")
+@Data
 public class Position implements Serializable {
 	@Column(name = "PositionID")
 	@Id
@@ -28,24 +30,24 @@ public class Position implements Serializable {
 	@OneToMany(mappedBy = "position")
 	List<Account> listAccounts;
 
-	public Position() {
-		super();
-	}
-
-	public short getId() {
-		return id;
-	}
-
-	public void setId(short id) {
-		this.id = id;
-	}
-
-	public PositionName getName() {
-		return name;
-	}
-
-	public void setName(PositionName name) {
-		this.name = name;
-	}
+//	public Position() {
+//		super();
+//	}
+//
+//	public short getId() {
+//		return id;
+//	}
+//
+//	public void setId(short id) {
+//		this.id = id;
+//	}
+//
+//	public PositionName getName() {
+//		return name;
+//	}
+//
+//	public void setName(PositionName name) {
+//		this.name = name;
+//	}
 
 }

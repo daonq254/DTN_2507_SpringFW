@@ -14,9 +14,16 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import lombok.Data;
 
 @Entity
 @Table(name = "`Account`", catalog = "Testing_System")
+//@Getter
+//@Setter
+//@ToString
+//@NoArgsConstructor
+//@AllArgsConstructor
+@Data
 public class Account {
 	@Column(name = "AccountID")
 	@Id
@@ -54,89 +61,89 @@ public class Account {
 	@Column(name = "PathImage", length = 50, unique = true)
 	private String pathImage;
 
-	public Account() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+//	public Account() {
+//		super();
+//		// TODO Auto-generated constructor stub
+//	}
 
-	public String getPathImage() {
-		return pathImage;
-	}
-
-	public void setPathImage(String pathImage) {
-		this.pathImage = pathImage;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public short getId() {
-		return id;
-	}
-
-	public void setId(short id) {
-		this.id = id;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getFullname() {
-		return fullname;
-	}
-
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
-	}
-
-	public Department getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
-
-	public Position getPosition() {
-		return position;
-	}
-
-	public void setPosition(Position position) {
-		this.position = position;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
+//	public String getPathImage() {
+//		return pathImage;
+//	}
+//
+//	public void setPathImage(String pathImage) {
+//		this.pathImage = pathImage;
+//	}
+//
+//	public String getRole() {
+//		return role;
+//	}
+//
+//	public void setRole(String role) {
+//		this.role = role;
+//	}
+//
+//	public String getPassword() {
+//		return password;
+//	}
+//
+//	public void setPassword(String password) {
+//		this.password = password;
+//	}
+//
+//	public short getId() {
+//		return id;
+//	}
+//
+//	public void setId(short id) {
+//		this.id = id;
+//	}
+//
+//	public String getEmail() {
+//		return email;
+//	}
+//
+//	public void setEmail(String email) {
+//		this.email = email;
+//	}
+//
+//	public String getUsername() {
+//		return username;
+//	}
+//
+//	public void setUsername(String username) {
+//		this.username = username;
+//	}
+//
+//	public String getFullname() {
+//		return fullname;
+//	}
+//
+//	public void setFullname(String fullname) {
+//		this.fullname = fullname;
+//	}
+//
+//	public Department getDepartment() {
+//		return department;
+//	}
+//
+//	public void setDepartment(Department department) {
+//		this.department = department;
+//	}
+//
+//	public Position getPosition() {
+//		return position;
+//	}
+//
+//	public void setPosition(Position position) {
+//		this.position = position;
+//	}
+//
+//	public Date getCreateDate() {
+//		return createDate;
+//	}
+//
+//	public void setCreateDate(Date createDate) {
+//		this.createDate = createDate;
+//	}
 
 }

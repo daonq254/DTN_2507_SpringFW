@@ -10,9 +10,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name = "Department", catalog = "Testing_System")
+@Data
 public class Department implements Serializable {
 	@Column(name = "DepartmentID")
 	@Id
@@ -25,24 +27,24 @@ public class Department implements Serializable {
 	@OneToMany(mappedBy = "department")
 	List<Account> listAccounts;
 
-	public Department() {
-		super();
-	}
-
-	public short getId() {
-		return id;
-	}
-
-	public void setId(short id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+//	public Department() {
+//		super();
+//	}
+//
+//	public short getId() {
+//		return id;
+//	}
+//
+//	public void setId(short id) {
+//		this.id = id;
+//	}
+//
+//	public String getName() {
+//		return name;
+//	}
+//
+//	public void setName(String name) {
+//		this.name = name;
+//	}
 
 }
